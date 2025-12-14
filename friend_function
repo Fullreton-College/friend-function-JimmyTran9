@@ -1,0 +1,40 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class BankAccount {
+private:
+    string account_holder;
+    double balance;
+
+public:
+    BankAccount(string name, double initial_balance) {
+        account_holder = name;
+        balance = initial_balance;
+    }
+
+    void display_balance() const {
+        cout << "Account Holder: " << account_holder << endl;
+        cout << "Balance: $" << balance << endl;
+    }
+
+    friend void apply_interest(BankAccount& account, double rate);
+};
+
+void apply_interest(BankAccount& account, double rate) {
+    account.balance += account.balance * rate;
+}
+
+int main() {
+    BankAccount account("John Doe", 1000.00);
+
+    cout << "Initial Balance:\n";
+    account.display_balance();
+
+    apply_interest(account, 0.05);
+
+    cout << "\nAfter Applying Interest:\n";
+    account.display_balance();
+
+    return 0;
+}
